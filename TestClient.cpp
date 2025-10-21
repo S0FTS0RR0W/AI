@@ -2,6 +2,7 @@
 
 // import necessary libraries for ui and http requests
 #include "httplib.h"
+#include "json.hpp" // For JSON handling
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,9 +21,11 @@ void displayMessage(const string& message) {
     cout << message << endl;
 }
 
-void getUserInput(string& input) {
+// Function to get user input from the console
+string getUserInput() {
+    string input;
     cout << "Enter your message: ";
-    getLine(cin, input);
+    getline(cin, input);
     cout << endl;
     return input;
 }
@@ -35,8 +38,7 @@ int main()
     httplib::Client cli(SERVER_ADDRESS, SERVER_PORT);
 
     // get user input
-    string userInput;
-    getUserInput(userInput);
+    string userInput = getUserInput();
 
     // create json request body
     nlohmann::json request_body;
